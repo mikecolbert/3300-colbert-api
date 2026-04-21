@@ -6,7 +6,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Load model once when the app starts
-model = joblib.load("salary_predict_model.ml")
+model = joblib.load("salary_predict_model.pkl")
 
 
 @app.route("/")
@@ -17,6 +17,12 @@ def home():
         "<p>BAIS:3300 - Digital Product Development</p>"
         "<p>Mike Colbert</p>"
     )
+
+
+@app.route("/health", methods=["GET"])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({"status": "ok"}), 200
 
 
 @app.route("/predict", methods=["POST"])
